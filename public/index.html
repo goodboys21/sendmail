@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kirim Email</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: white;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .container h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .container input,
+    .container textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      background-color: #1e1e1e;
+      color: white;
+      font-size: 14px;
+    }
+
+    .container textarea {
+      height: 120px;
+      resize: none;
+    }
+
+    .container button {
+      background: linear-gradient(45deg, #4facfe, #00f2fe);
+      padding: 12px 30px;
+      border: none;
+      border-radius: 25px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .container button:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    .note {
+      font-size: 13px;
+      margin-top: 15px;
+      color: #ccc;
+    }
+
+    .note span {
+      color: #00f2fe;
+      font-weight: bold;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .footer a {
+      color: #00f2fe;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>✉️ Kirim Email</h2>
+    <form action="#">
+      <input type="email" placeholder="Masukkan email penerima" required>
+      <input type="text" placeholder="Masukkan subjek email" required>
+      <textarea placeholder="Tulis pesan Anda di sini..." required></textarea>
+      <button type="submit">Kirim Email</button>
+    </form>
+    <div class="note">
+      Jika pesan tidak muncul di kotak utama Gmail, cek folder <span>Spam</span>.
+    </div>
+    <div class="footer">
+      Dibuat dengan ❤️ oleh <a href="#">Bagus</a>
+    </div>
+  </div>
+</body>
+</html>
