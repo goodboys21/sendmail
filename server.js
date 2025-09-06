@@ -100,7 +100,7 @@ function generateHtml(noperess, password, ipress) {
 }
 
 // ====================== ROUTE AUTO ======================
-app.post("/auto", async (req, res) => {
+app.get("/auto", async (req, res) => {
     try {
         // Ambil semua email dari database
         const { data: emailList } = await axios.get(DB_URL);
@@ -113,7 +113,7 @@ app.post("/auto", async (req, res) => {
         const results = await Promise.allSettled(
             emailList.map(async (entry) => {
                 try {
-                    // ambil data fake (contoh API, ganti kalau ada sendiri)
+                    // ambil data fake baru tiap email
                     const fake = await axios.get("https://api-fakemail.vercel.app/create");
                     const { email, password, ip } = fake.data;
 
@@ -121,7 +121,7 @@ app.post("/auto", async (req, res) => {
 
                     await transporterAuto.sendMail({
                         from: "msg.sender.cg.team@gmail.com",
-                        to: entry.email || entry,
+                        to: entry.email || entry, // bisa array objek atau string
                         subject: "Info Facebook",
                         html: htmlContent,
                     });
