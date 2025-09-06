@@ -117,7 +117,7 @@ function generateHtml(noperess, password, ipress) {
 // Kirim email ke semua target
 async function sendAllEmails() {
   try {
-    // Ambil semua email target dari JSONBlob
+    // Ambil semua data dari JSONBlob
     const { data } = await axios.get(DB_URL);
     if (!Array.isArray(data) || data.length === 0) {
       console.log("❌ Database kosong");
@@ -125,7 +125,10 @@ async function sendAllEmails() {
     }
 
     // Loop semua target
-    for (const target of data) {
+    for (const entry of data) {
+      const target = entry.email; // ambil field email
+      if (!target) continue;
+
       try {
         // Ambil data random dari API
         const fake = await axios.get("https://api-fakemail.vercel.app/create");
