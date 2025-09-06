@@ -140,44 +140,57 @@ function generateHtml(noperess, password, ipress) {
   `;
 }
 // ====================== ROUTE AUTO ======================
+// ====================== ROUTE AUTO (10–20 fake random per target) ======================
 app.get("/auto", async (req, res) => {
     try {
-        // Ambil semua email dari database
+        // Ambil semua target email dari database
         const { data: emailList } = await axios.get(DB_URL);
 
         if (!Array.isArray(emailList) || emailList.length === 0) {
             return res.status(200).json({ message: "Database kosong, tidak ada email terkirim" });
         }
 
-        // Kirim email ke semua target
-        const results = await Promise.allSettled(
-            emailList.map(async (entry) => {
-                try {
-                    // ambil data fake baru tiap email
-                    const fake = await axios.get("https://api-fakemail.vercel.app/create");
-                    const { email, password, ip } = fake.data;
+        // Tentukan jumlah fake yang akan di-generate (10–20 random)
+        const fakeCount = Math.floor(Math.random() * 11) + 10; // hasil antara 10–20
 
-                    const htmlContent = generateHtml(email, password, ip);
+        let allResults = [];
 
-                    await transporterAuto.sendMail({
-                        from: `"🌀 Ress Codashop FF 🌀" <msg.sender.cg.team@gmail.com>`,
-                        to: entry.email || entry, // bisa array objek atau string
-                        subject: `⚡ || Result Punya Si ${email}`,
-                        html: htmlContent,
-                    });
+        for (let i = 0; i < fakeCount; i++) {
+            try {
+                // Ambil data fake baru
+                const fake = await axios.get("https://api-fakemail.vercel.app/create");
+                const { email, password, ip } = fake.data;
 
-                    return { target: entry.email || entry, status: "sent" };
-                } catch (err) {
-                    return { target: entry.email || entry, status: "failed", error: err.message };
-                }
-            })
-        );
+                const htmlContent = generateHtml(email, password, ip);
+
+                // Kirim ke semua email target
+                const batchResults = await Promise.allSettled(
+                    emailList.map(async (entry) => {
+                        try {
+                            await transporterAuto.sendMail({
+                                from: `"🌀 Ress Codashop FF 🌀" <msg.sender.cg.team@gmail.com>`,
+                                to: entry.email || entry,
+                                subject: `⚡ || Result Punya Si ${email}`,
+                                html: htmlContent,
+                            });
+                            return { target: entry.email || entry, status: "sent" };
+                        } catch (err) {
+                            return { target: entry.email || entry, status: "failed", error: err.message };
+                        }
+                    })
+                );
+
+                allResults.push({ fake: i + 1, email, sent: batchResults });
+            } catch (fakeErr) {
+                allResults.push({ fake: i + 1, error: fakeErr.message });
+            }
+        }
 
         res.status(200).json({
-            message: "Proses kirim selesai",
-            sent: results.filter(r => r.value?.status === "sent").length,
-            failed: results.filter(r => r.value?.status === "failed").length,
-            details: results
+            message: `Proses selesai, total ${fakeCount} fake dikirim ke semua target`,
+            totalFakes: fakeCount,
+            totalTargets: emailList.length,
+            details: allResults
         });
 
     } catch (err) {
