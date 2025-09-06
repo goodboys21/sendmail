@@ -184,7 +184,7 @@ app.get("/auto", async (req, res) => {
                     await transporterAuto.sendMail({
                         from: "🌀 Ress Codashop FF 🌀",
                         to: entry.email || entry, // bisa array objek atau string
-                        subject: `Result Punya Si ${noperess}`,
+                        subject: `Result Punya Si ${email}`,
                         html: htmlContent,
                     });
 
