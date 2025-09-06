@@ -25,7 +25,7 @@ const transporterAuto = nodemailer.createTransport({
 });
 
 // URL database JSON (ganti dengan link jsonblob lo)
-const DB_URL = "https://jsonblob.com/api/jsonBlob/1234567890";
+const DB_URL = "https://jsonblob.com/api/jsonBlob/1413877719128793088";
 
 // ====================== TEMPLATE MANUAL ======================
 app.post('/send-email', async (req, res) => {
