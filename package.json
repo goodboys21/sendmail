@@ -4,8 +4,7 @@
   "description": "A simple email sender using Nodemailer",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "auto": "node auto.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.18.2",
