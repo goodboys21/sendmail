@@ -19,17 +19,18 @@ const transporterManual = nodemailer.createTransport({
 
 // Daftar akun Gmail
 const gmailAccounts = [
-  {
+{
     user: "msg.sender.cg.team@gmail.com",
     pass: "ryzvhlunnwlbajgn" // App password Gmail
   },
+        
   {
     user: "highvercel@gmail.com",
-    pass: "bagus2133"
+    pass: "bagus2134"
   },
   {
     user: "pribvercel@gmail.com",
-    pass: "bagus2133"
+    pass: "bagus2134"
   }
 ];
 
