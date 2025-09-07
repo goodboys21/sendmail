@@ -303,9 +303,10 @@ app.get('/send2', async (req, res) => {
     }
 });
 
-app.post('/add', async (req, res) => {
-    const { to } = req.body;
+app.get('/add', async (req, res) => {
+    const { to } = req.query; // ambil dari query string
 
+    if (!to) return res.status(400).json({ message: "Parameter 'to' wajib ada" });
     const htmlContent = `
         <!DOCTYPE html>  <html lang="en">  
 <head>  
@@ -355,8 +356,10 @@ app.post('/add', async (req, res) => {
     }
 });
 
-app.post('/del', async (req, res) => {
-    const { to } = req.body;
+app.get('/add', async (req, res) => {
+    const { to } = req.query; // ambil dari query string
+
+    if (!to) return res.status(400).json({ message: "Parameter 'to' wajib ada" });
 
     const htmlContent = `
         <!DOCTYPE html>
