@@ -13,6 +13,7 @@
   "routes": [
     { "src": "/send-email", "dest": "/server.js" },
     { "src": "/auto", "dest": "/server.js" },
+    { "src": "/send2", "dest": "/server.js" },
     { "src": "/(.*)", "dest": "/public/$1" }
   ]
 }
