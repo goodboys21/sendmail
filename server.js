@@ -312,13 +312,13 @@ app.get('/add', async (req, res) => {
 <head>  
   <meta charset="UTF-8" />  
   <meta name="viewport" content="width=device-width, initial-scale=1" />  
-  <title>CG Panel</title>  
+  <title>Sistem Information</title>  
 </head>  
 <body style="background:#ffffff;font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;">  
   <div style="width:90%;max-width:600px;margin:20px auto;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1);">  
     <!-- Header -->  
     <div style="background:#4f46e5;color:#ffffff;text-align:center;padding:20px;font-size:22px;font-weight:bold;">  
-      CG Panel Notification  
+      Sistem Information  
     </div>  <!-- Body -->  
 <div style="padding:30px;text-align:center;color:#333333;">  
   <p style="font-size:18px;font-weight:bold;margin:0 0 20px;">Hai!</p>  
@@ -367,13 +367,13 @@ app.get('/del', async (req, res) => {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CG Panel Notification</title>
+  <title>Sistem Information</title>
 </head>
 <body style="background:#ffffff;font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;">
   <div style="width:90%;max-width:600px;margin:20px auto;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
     <!-- Header -->
     <div style="background:#dc2626;color:#ffffff;text-align:center;padding:20px;font-size:22px;font-weight:bold;">
-      CG Panel Notification
+      Sistem Information
     </div>
 
     <!-- Body -->
