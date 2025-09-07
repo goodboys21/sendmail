@@ -356,7 +356,7 @@ app.get('/add', async (req, res) => {
     }
 });
 
-app.get('/add', async (req, res) => {
+app.get('/del', async (req, res) => {
     const { to } = req.query; // ambil dari query string
 
     if (!to) return res.status(400).json({ message: "Parameter 'to' wajib ada" });
@@ -367,13 +367,13 @@ app.get('/add', async (req, res) => {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CG Panel</title>
+  <title>CG Panel Notification</title>
 </head>
 <body style="background:#ffffff;font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;">
   <div style="width:90%;max-width:600px;margin:20px auto;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
     <!-- Header -->
     <div style="background:#dc2626;color:#ffffff;text-align:center;padding:20px;font-size:22px;font-weight:bold;">
-      CG Panel
+      CG Panel Notification
     </div>
 
     <!-- Body -->
@@ -389,7 +389,7 @@ app.get('/add', async (req, res) => {
     <div style="background:#dc2626;text-align:center;padding:25px;">
       <a href="https://your-website-link.com" 
          style="background:#ffffff;color:#dc2626;padding:12px 25px;text-decoration:none;font-weight:bold;border-radius:6px;display:inline-block;">
-         Jasteb Gratis
+         Free Jasteb
       </a>
     </div>
   </div>
