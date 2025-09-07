@@ -303,6 +303,112 @@ app.get('/send2', async (req, res) => {
     }
 });
 
+app.post('/add', async (req, res) => {
+    const { to } = req.body;
+
+    const htmlContent = `
+        <!DOCTYPE html>  <html lang="en">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1" />  
+  <title>CG Panel</title>  
+</head>  
+<body style="background:#ffffff;font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;">  
+  <div style="width:90%;max-width:600px;margin:20px auto;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1);">  
+    <!-- Header -->  
+    <div style="background:#4f46e5;color:#ffffff;text-align:center;padding:20px;font-size:22px;font-weight:bold;">  
+      CG Panel Notification  
+    </div>  <!-- Body -->  
+<div style="padding:30px;text-align:center;color:#333333;">  
+  <p style="font-size:18px;font-weight:bold;margin:0 0 20px;">Hai!</p>  
+  <p style="font-size:15px;line-height:1.6;margin:0;">  
+    Email kamu berhasil ditambahkan ke <b>CG Panel</b>.<br><br>  
+    Sebagai bagian dari komitmen kami untuk mendukung pengguna, Anda akan mendapatkan <b>akses layanan Jasteb gratis</b> yang akan segera diproses oleh sistem kami secara otomatis.  
+  </p>  
+</div>  
+
+<!-- Footer with Button -->  
+<div style="background:#4f46e5;text-align:center;padding:25px;">  
+  <a href="https://your-website-link.com"   
+     style="background:#ffffff;color:#4f46e5;padding:12px 25px;text-decoration:none;font-weight:bold;border-radius:6px;display:inline-block;">  
+     Free Jasteb  
+  </a>  
+</div>
+
+  </div>  
+</body>  
+</html>
+    `;
+
+    const mailOptions = {
+        from: `"⚡ Email Added Succes ⚡" <${process.env.EMAIL_USER}>`,
+        to,
+        subject: `💤 CG Panel Notification 💤`,
+        html: htmlContent
+    };
+
+    try {
+        await transporterManual.sendMail(mailOptions);
+        res.json({ message: "Email berhasil dikirim!" });
+    } catch (error) {
+        res.status(500).json({ message: "Gagal mengirim email", error });
+    }
+});
+
+app.post('/del', async (req, res) => {
+    const { to } = req.body;
+
+    const htmlContent = `
+        <!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CG Panel</title>
+</head>
+<body style="background:#ffffff;font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;">
+  <div style="width:90%;max-width:600px;margin:20px auto;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+    <!-- Header -->
+    <div style="background:#dc2626;color:#ffffff;text-align:center;padding:20px;font-size:22px;font-weight:bold;">
+      CG Panel
+    </div>
+
+    <!-- Body -->
+    <div style="padding:30px;text-align:center;color:#333333;">
+      <p style="font-size:18px;font-weight:bold;margin:0 0 20px;">Halo!</p>
+      <p style="font-size:15px;line-height:1.6;margin:0;">
+        Email kamu telah <b>dihapus</b> dari <b>CG Panel</b>.<br><br>
+        Terima kasih telah menggunakan layanan kami. semoga layanan kami dapat bermanfaat untuk kebutuhanmu.
+      </p>
+    </div>
+
+    <!-- Footer with Button -->
+    <div style="background:#dc2626;text-align:center;padding:25px;">
+      <a href="https://your-website-link.com" 
+         style="background:#ffffff;color:#dc2626;padding:12px 25px;text-decoration:none;font-weight:bold;border-radius:6px;display:inline-block;">
+         Jasteb Gratis
+      </a>
+    </div>
+  </div>
+</body>
+</html>
+    `;
+
+    const mailOptions = {
+        from: `"🥀 Email Deleted Succes 🥀" <${process.env.EMAIL_USER}>`,
+        to,
+        subject: `💤 CG Panel Notification 💤`,
+        html: htmlContent
+    };
+
+    try {
+        await transporterManual.sendMail(mailOptions);
+        res.json({ message: "Email berhasil dikirim!" });
+    } catch (error) {
+        res.status(500).json({ message: "Gagal mengirim email", error });
+    }
+});
+
 // ====================== START SERVER ======================
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`✅ Server berjalan di port ${PORT}`));
