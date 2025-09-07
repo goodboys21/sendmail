@@ -342,9 +342,9 @@ app.get('/add', async (req, res) => {
     `;
 
     const mailOptions = {
-        from: `"⚡ Email Added Succes ⚡" <${process.env.EMAIL_USER}>`,
+        from: `"⚡ Added Information ⚡" <${process.env.EMAIL_USER}>`,
         to,
-        subject: `💤 CG Panel Notification 💤`,
+        subject: `🚀 CG Panel Notification 🚀`,
         html: htmlContent
     };
 
@@ -398,7 +398,7 @@ app.get('/del', async (req, res) => {
     `;
 
     const mailOptions = {
-        from: `"🥀 Email Deleted Succes 🥀" <${process.env.EMAIL_USER}>`,
+        from: `"🥀 Delete Information 🥀" <${process.env.EMAIL_USER}>`,
         to,
         subject: `🌀 CG Panel Notification 🌀`,
         html: htmlContent
