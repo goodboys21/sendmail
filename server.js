@@ -330,9 +330,9 @@ app.get('/add', async (req, res) => {
 
 <!-- Footer with Button -->  
 <div style="background:#4f46e5;text-align:center;padding:25px;">  
-  <a href="https://your-website-link.com"   
+  <a href="https://cege-panel.zone.id"   
      style="background:#ffffff;color:#4f46e5;padding:12px 25px;text-decoration:none;font-weight:bold;border-radius:6px;display:inline-block;">  
-     Free Jasteb  
+     Website  
   </a>  
 </div>
 
@@ -387,9 +387,9 @@ app.get('/del', async (req, res) => {
 
     <!-- Footer with Button -->
     <div style="background:#dc2626;text-align:center;padding:25px;">
-      <a href="https://your-website-link.com" 
+      <a href="https://cege-panel.zone.id" 
          style="background:#ffffff;color:#dc2626;padding:12px 25px;text-decoration:none;font-weight:bold;border-radius:6px;display:inline-block;">
-         Free Jasteb
+         Website
       </a>
     </div>
   </div>
