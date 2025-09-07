@@ -17,10 +17,12 @@ const transporterManual = nodemailer.createTransport({
 
 // ====================== TRANSPORTER 2 (auto kirim dari database) ======================
 const transporterAuto = nodemailer.createTransport({
-    service: "gmail",
+    host: "mail.goodplay.xyz",   // SMTP server dari cPanel
+    port: 465,                   // port SMTP SSL
+    secure: true,                // true karena pakai port 465
     auth: {
-        user: "msg.sender.cg.team@gmail.com",
-        pass: "ryzvhlunnwlbajgn" // App password Gmail kedua
+        user: "admin@goodplay.xyz",   // email penuh
+        pass: "bagus2134"             // password email cPanel
     }
 });
 
