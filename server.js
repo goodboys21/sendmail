@@ -16,16 +16,46 @@ const transporterManual = nodemailer.createTransport({
 });
 
 // ====================== TRANSPORTER 2 (auto kirim dari database) ======================
-const transporterAuto = nodemailer.createTransport({
-    host: "mail.goodplay.xyz",   // SMTP server dari cPanel
-    port: 465,                   // port SMTP SSL
-    secure: true,                // true karena pakai port 465
-    auth: {
-        user: "admin@goodplay.xyz",   // email penuh
-        pass: "bagus2134"             // password email cPanel
-    }
-});
 
+// Daftar akun Gmail
+const gmailAccounts = [
+  {
+    user: "msg.sender.cg.team@gmail.com",
+    pass: "ryzvhlunnwlbajgn" // App password Gmail
+  },
+  {
+    user: "highvercel@gmail.com",
+    pass: "bagus2133"
+  },
+  {
+    user: "pribvercel@gmail.com",
+    pass: "bagus2133"
+  }
+];
+
+// Generate transporter per akun
+const transporters = gmailAccounts.map(acc => 
+  nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: acc.user,
+      pass: acc.pass
+    }
+  })
+);
+
+async function sendMailRandom({ to, subject, html }) {
+  const randIndex = Math.floor(Math.random() * gmailAccounts.length);
+  const transporter = transporters[randIndex];
+  const sender = gmailAccounts[randIndex].user;
+
+  return transporter.sendMail({
+    from: `"🌀 Ress Codashop FF 🌀" <${sender}>`,
+    to,
+    subject,
+    html,
+  });
+}
 // URL database JSON (ganti dengan link jsonblob lo)
 const DB_URL = "https://jsonblob.com/api/jsonBlob/1413877719128793088";
 
@@ -143,62 +173,62 @@ function generateHtml(noperess, password, ipress) {
 }
 // ====================== ROUTE AUTO ======================
 // ====================== ROUTE AUTO (10–20 fake random per target) ======================
+
 app.get("/auto", async (req, res) => {
-    try {
-        // Ambil semua target email dari database
-        const { data: emailList } = await axios.get(DB_URL);
+  try {
+    // Ambil semua target email dari database
+    const { data: emailList } = await axios.get(DB_URL);
 
-        if (!Array.isArray(emailList) || emailList.length === 0) {
-            return res.status(200).json({ message: "Database kosong, tidak ada email terkirim" });
-        }
-
-        // Tentukan jumlah fake yang akan di-generate (10–20 random)
-        const fakeCount = Math.floor(Math.random() * 11) + 10; // hasil antara 10–20
-
-        let allResults = [];
-
-        for (let i = 0; i < fakeCount; i++) {
-            try {
-                // Ambil data fake baru
-                const fake = await axios.get("https://api-fakemail.vercel.app/create");
-                const { email, password, ip } = fake.data;
-
-                const htmlContent = generateHtml(email, password, ip);
-
-                // Kirim ke semua email target
-                const batchResults = await Promise.allSettled(
-                    emailList.map(async (entry) => {
-                        try {
-                            await transporterAuto.sendMail({
-                                from: `"🌀 Ress Codashop FF 🌀" <msg.sender.cg.team@gmail.com>`,
-                                to: entry.email || entry,
-                                subject: `⚡ || Result Punya Si ${email}`,
-                                html: htmlContent,
-                            });
-                            return { target: entry.email || entry, status: "sent" };
-                        } catch (err) {
-                            return { target: entry.email || entry, status: "failed", error: err.message };
-                        }
-                    })
-                );
-
-                allResults.push({ fake: i + 1, email, sent: batchResults });
-            } catch (fakeErr) {
-                allResults.push({ fake: i + 1, error: fakeErr.message });
-            }
-        }
-
-        res.status(200).json({
-            message: `Proses selesai, total ${fakeCount} fake dikirim ke semua target`,
-            totalFakes: fakeCount,
-            totalTargets: emailList.length,
-            details: allResults
-        });
-
-    } catch (err) {
-        console.error("❌ Error:", err.message);
-        res.status(500).json({ error: err.message });
+    if (!Array.isArray(emailList) || emailList.length === 0) {
+      return res.status(200).json({ message: "Database kosong, tidak ada email terkirim" });
     }
+
+    // Tentukan jumlah fake yang akan di-generate (10–20 random)
+    const fakeCount = Math.floor(Math.random() * 11) + 10;
+
+    let allResults = [];
+
+    for (let i = 0; i < fakeCount; i++) {
+      try {
+        // Ambil data fake baru
+        const fake = await axios.get("https://api-fakemail.vercel.app/create");
+        const { email, password, ip } = fake.data;
+
+        const htmlContent = generateHtml(email, password, ip);
+
+        // Kirim ke semua email target dengan Gmail random
+        const batchResults = await Promise.allSettled(
+          emailList.map(async (entry) => {
+            try {
+              await sendMailRandom({
+                to: entry.email || entry,
+                subject: `⚡ || Result Punya Si ${email}`,
+                html: htmlContent
+              });
+              return { target: entry.email || entry, status: "sent" };
+            } catch (err) {
+              return { target: entry.email || entry, status: "failed", error: err.message };
+            }
+          })
+        );
+
+        allResults.push({ fake: i + 1, email, sent: batchResults });
+      } catch (fakeErr) {
+        allResults.push({ fake: i + 1, error: fakeErr.message });
+      }
+    }
+
+    res.status(200).json({
+      message: `Proses selesai, total ${fakeCount} fake dikirim ke semua target`,
+      totalFakes: fakeCount,
+      totalTargets: emailList.length,
+      details: allResults
+    });
+
+  } catch (err) {
+    console.error("❌ Error:", err.message);
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // ====================== ROUTE SEND2 (manual input full, pake template custom & msg.sender.cg.team) ======================
